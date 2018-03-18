@@ -1,24 +1,13 @@
-package com.lcavazzani.skipthechallenge.fragments;
+package com.lcavazzani.skipthechallenge;
 
-/**
- * Created by leonardoCavazzani on 3/18/18.
- */
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lcavazzani.skipthechallenge.R;
+import com.lcavazzani.skipthechallenge.adapters.InsideStoreAdapter;
 import com.lcavazzani.skipthechallenge.adapters.StoresListAdapter;
 import com.lcavazzani.skipthechallenge.helpers.SmoothRecyclerView;
 
@@ -26,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,28 +24,33 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class StoreFragment extends Fragment {
-    SmoothRecyclerView StoresRV;
-    StoresListAdapter storesListAdapter;
+public class StoreActivity extends AppCompatActivity {
+    TextView _id;
+    String intentId;
+    SmoothRecyclerView ProductsRV;
+    InsideStoreAdapter insideStoreAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_store);
+        ProductsRV = findViewById(R.id.store_product_list);
+        GridLayoutManager storeLM = new GridLayoutManager(this,1, GridLayoutManager.VERTICAL,false);
+        ProductsRV.setLayoutManager(storeLM);
+        ProductsRV.setItemAnimator(new DefaultItemAnimator());
+        _id= findViewById(R.id._id);
 
-        GridLayoutManager storeLM = new GridLayoutManager(getActivity(),1, GridLayoutManager.VERTICAL,false);
-
-        StoresRV= container.findViewById(R.id.storesList);
-        StoresRV.setLayoutManager(storeLM);
-        StoresRV.setItemAnimator(new DefaultItemAnimator());
+        Intent intent = getIntent();
+        intentId = intent.getStringExtra("id");
+        _id.setText(intentId);
 
         getStores();
-
-
-        return inflater.inflate(R.layout.fragment_store_layout, container, false);
     }
     private void getStores() {
         // pd = ProgressDialog.show(getContext(), "", "Carregando...",true);
 
-        String stringUrl = getString(R.string.host) + getString(R.string.stores_list);
+        String stringUrl = getString(R.string.host) + getString(R.string.open_store);
+        stringUrl = stringUrl.replace(":store_id", intentId);
 
         RequestBody formBody = new FormBody.Builder()
                 .build();
@@ -79,7 +72,7 @@ public class StoreFragment extends Fragment {
 //                Log.i(TAG, "response: " + response.toString());
                 final String jsonData = response.body().string();
 
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -98,12 +91,11 @@ public class StoreFragment extends Fragment {
 
         JSONArray rootArray = new JSONArray(jsonData);
 
-        storesListAdapter = new StoresListAdapter(getContext(), rootArray);
+        insideStoreAdapter = new InsideStoreAdapter (StoreActivity.this, rootArray);
 
-        StoresRV.setFocusable(false);
+        ProductsRV.setFocusable(false);
 
-        StoresRV.setAdapter(storesListAdapter);
+        ProductsRV.setAdapter(insideStoreAdapter);
     }
-
 
 }

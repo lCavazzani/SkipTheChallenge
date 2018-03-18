@@ -5,5 +5,9 @@
 
 
     <string name="stores_list">/api/v1/Store</string>
+    <string name="open_store">/api/v1/Store/:store_id/products</string>
+    <string name="product_detail">//api/v1/Product/:product_id</string>
+
+
     <string name="products_list">/api/v1/Product</string>
 </resources>

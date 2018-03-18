@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:id="@+id/_id"/>
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="PRODUCT NAME"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="22dp" />
+
+
+    <TextView
+        android:id="@+id/productDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/productName"
+        android:layout_marginTop="17dp"
+        android:text="DESCRIPTION OF MY DISHE"/>
+
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/productName"
+        android:layout_alignRight="@+id/productName"
+        android:layout_below="@+id/productName"
+        android:text="10.95"
+        android:textSize="22sp" />
+
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="#fff"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/productDetail"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="+" />
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnAdd"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:text="1"/>
+    <Button
+        android:id="@+id/btnSubtraction"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="#fff"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/amount"
+        android:text="-" />
+
+    <TextView
+        android:id="@+id/totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSubtraction"
+        android:layout_marginTop="51dp"
+        android:textSize="18sp"
+        android:text="TOTAL"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/btnAddCart"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:text="Add to Cart" />
+</RelativeLayout>

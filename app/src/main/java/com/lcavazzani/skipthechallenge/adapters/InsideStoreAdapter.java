@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.lcavazzani.skipthechallenge.ProductDetailActivity;
 import com.lcavazzani.skipthechallenge.R;
 import com.lcavazzani.skipthechallenge.StoreActivity;
 import com.lcavazzani.skipthechallenge.fragments.StoreFragment;
@@ -32,12 +33,12 @@ import java.util.ArrayList;
  * Created by leonardoCavazzani on 2/22/17.
  */
 
-public class StoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class InsideStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
     JSONArray mPages;
 
-    public StoresListAdapter(Context context, JSONArray pages){
+    public InsideStoreAdapter(Context context, JSONArray pages){
         mContext = context;
         mPages = pages;
     }
@@ -45,7 +46,7 @@ public class StoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_store_list, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_product_list, parent, false);
         MyHolder holder=new MyHolder(view);
 
         return holder;
@@ -58,8 +59,8 @@ public class StoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             JSONObject mpackid = mPages.getJSONObject(position);
 
-            myHolder.nameStore.setText(mpackid.optString("name"));
-            myHolder.addressStore.setText(mpackid.optString("address"));
+            myHolder.productName.setText(mpackid.optString("name"));
+            myHolder.productPrice.setText(mpackid.optString("price"));
             myHolder._id.setText(mpackid.optString("id"));
 
             myHolder.fulllayout.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +68,8 @@ public class StoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 public void onClick(View v) {
                     TextView _id = (TextView) v.findViewById(R.id._id);
                     String final_id = _id.getText().toString();
-                    Intent intent = new Intent(mContext, StoreActivity.class);
-                    intent.putExtra("id", final_id);
+                    Intent intent = new Intent(mContext, ProductDetailActivity.class);
+                    intent.putExtra("product_id", final_id);
                     mContext.startActivity(intent);
                 }
             });
@@ -103,8 +104,8 @@ public class StoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
     class MyHolder extends RecyclerView.ViewHolder{
 
-        TextView nameStore;
-        TextView addressStore;
+        TextView productName;
+        TextView productPrice;
         TextView _id;
         LinearLayout fulllayout;
 
@@ -113,10 +114,10 @@ public class StoresListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public MyHolder(View itemView) {
             super(itemView);
 
-            nameStore = (TextView) itemView.findViewById(R.id.nameStore);
-            addressStore = (TextView) itemView.findViewById(R.id.addressStore);
+            productName = (TextView) itemView.findViewById(R.id.productName);
+            productPrice = (TextView) itemView.findViewById(R.id.productPrice);
             _id = (TextView) itemView.findViewById(R.id._id);
-            fulllayout = itemView.findViewById(R.id.storefulllayout);
+            fulllayout = itemView.findViewById(R.id.fulllayout);
 
         }
 
