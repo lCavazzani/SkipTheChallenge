@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SkipTheChallenge</string>
+
+    <string name="host">http://api-vanhack-event-sp.azurewebsites.net</string>
+
+
+    <string name="stores_list">/api/v1/Store</string>
+    <string name="products_list">/api/v1/Product</string>
 </resources>
