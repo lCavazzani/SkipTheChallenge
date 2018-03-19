@@ -3,6 +3,7 @@ package com.lcavazzani.skipthechallenge.fragments;
 /**
  * Created by leonardoCavazzani on 3/18/18.
  */
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -39,23 +40,28 @@ import okhttp3.Response;
 public class StoreFragment extends Fragment {
     SmoothRecyclerView StoresRV;
     StoresListAdapter storesListAdapter;
+    ProgressDialog pd;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        View rootView = inflater.inflate(R.layout.fragment_store_layout, container, false);
+        StoresRV= rootView.findViewById(R.id.storesList);
         GridLayoutManager storeLM = new GridLayoutManager(getActivity(),1, GridLayoutManager.VERTICAL,false);
-
-        StoresRV= container.findViewById(R.id.storesList);
         StoresRV.setLayoutManager(storeLM);
         StoresRV.setItemAnimator(new DefaultItemAnimator());
-
         getStores();
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 
 
-        return inflater.inflate(R.layout.fragment_store_layout, container, false);
+
     }
     private void getStores() {
-        // pd = ProgressDialog.show(getContext(), "", "Carregando...",true);
+         pd = ProgressDialog.show(getContext(), "", "Loading...",true);
 
         String stringUrl = getString(R.string.host) + getString(R.string.stores_list);
 
@@ -84,6 +90,7 @@ public class StoreFragment extends Fragment {
                     public void run() {
                         try {
                             updateStores(jsonData);
+                            pd.dismiss();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {

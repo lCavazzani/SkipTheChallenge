@@ -1,10 +1,13 @@
 package com.lcavazzani.skipthechallenge;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.Html;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.lcavazzani.skipthechallenge.adapters.InsideStoreAdapter;
@@ -29,6 +32,7 @@ public class StoreActivity extends AppCompatActivity {
     String intentId;
     SmoothRecyclerView ProductsRV;
     InsideStoreAdapter insideStoreAdapter;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +47,14 @@ public class StoreActivity extends AppCompatActivity {
         Intent intent = getIntent();
         intentId = intent.getStringExtra("id");
         _id.setText(intentId);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"white\">" +"Select your dish" + "</font>"));
 
         getStores();
     }
     private void getStores() {
-        // pd = ProgressDialog.show(getContext(), "", "Carregando...",true);
+         pd = ProgressDialog.show(StoreActivity.this, "", "Loading Dishes...",true);
 
         String stringUrl = getString(R.string.host) + getString(R.string.open_store);
         stringUrl = stringUrl.replace(":store_id", intentId);
@@ -77,6 +84,7 @@ public class StoreActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             updateStores(jsonData);
+                            pd.dismiss();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -96,6 +104,17 @@ public class StoreActivity extends AppCompatActivity {
         ProductsRV.setFocusable(false);
 
         ProductsRV.setAdapter(insideStoreAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

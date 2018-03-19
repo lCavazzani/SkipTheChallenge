@@ -8,6 +8,6 @@
     <com.lcavazzani.skipthechallenge.helpers.SmoothRecyclerView
         android:id="@+id/storesList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.lcavazzani.skipthechallenge.helpers.SmoothRecyclerView>
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

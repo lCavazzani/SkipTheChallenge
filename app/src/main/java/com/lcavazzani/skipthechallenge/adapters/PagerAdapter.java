@@ -23,11 +23,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                ProductsFragment productsFragment = new ProductsFragment();
-                return productsFragment;
+                return new StoreFragment();
             case 1:
-                StoreFragment storeFragment = new StoreFragment();
-                return storeFragment;
+                return new ProductsFragment();
+
             default:
                 return null;
         }
