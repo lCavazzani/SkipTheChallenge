@@ -15,6 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:textStyle="bold"
+        android:text="Test name"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/colorAccent"
@@ -22,6 +24,7 @@
 
     <TextView
         android:id="@+id/addressStore"
+        android:text="Text description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

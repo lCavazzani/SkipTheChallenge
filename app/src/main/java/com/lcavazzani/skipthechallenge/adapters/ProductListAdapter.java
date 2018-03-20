@@ -70,8 +70,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             });
 
-
-
 //            Glide.with(mContext).load(mpackid.optString("file_thumb"))
 //                    .asBitmap()
 //                    .thumbnail(Glide.with(mContext).load(R.drawable.ajax_loader).asBitmap())

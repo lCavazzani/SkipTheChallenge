@@ -60,7 +60,7 @@ public class InsideStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             JSONObject mpackid = mPages.getJSONObject(position);
 
             myHolder.productName.setText(mpackid.optString("name"));
-            myHolder.productPrice.setText(mpackid.optString("price"));
+            myHolder.productPrice.setText("$"+mpackid.optString("price"));
             myHolder._id.setText(mpackid.optString("id"));
 
             myHolder.fulllayout.setOnClickListener(new View.OnClickListener() {
