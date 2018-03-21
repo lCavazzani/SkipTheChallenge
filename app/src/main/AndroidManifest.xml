@@ -11,7 +11,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Welcome!"
+        android:label="SkipTheDishes"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -25,9 +25,10 @@
         <activity
             android:name=".MainActivity"
             android:label="Browser"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".StoreActivity"></activity>
-        <activity android:name=".ProductDetailActivity"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".StoreActivity" />
+        <activity android:name=".ProductDetailActivity" />
+        <activity android:name=".CartActivity"></activity>
     </application>
 
 </manifest>

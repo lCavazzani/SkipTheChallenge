@@ -6,13 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lcavazzani.skipthechallenge.adapters.InsideStoreAdapter;
 import com.lcavazzani.skipthechallenge.helpers.SmoothRecyclerView;
+import com.lcavazzani.skipthechallenge.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,13 +42,15 @@ public class ProductDetailActivity extends AppCompatActivity {
     Button btnSubtraction, btnAdd;
     double price;
     int multiple;
+    User user;
+    String total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_cart);
 
-
+        user = User.getInstance();
         productName = findViewById(R.id.productName);
         productDetail = findViewById(R.id.productDetail);
         productPrice = findViewById(R.id.productPrice);
@@ -53,7 +58,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         totalPrice = findViewById(R.id.totalPrice);
         btnSubtraction = findViewById(R.id.btnSubtraction);
         btnAdd = findViewById(R.id.btnAdd);
-
         multiple = Integer.parseInt((String) amount.getText());
         _id= findViewById(R.id._id);
         Intent intent = getIntent();
@@ -76,6 +80,32 @@ public class ProductDetailActivity extends AppCompatActivity {
                     amount.setText(String.valueOf(multiple));
                     changePrice(multiple, price);
                 }
+            }
+        });
+
+        Button addCart = findViewById(R.id.addCart);
+
+
+        addCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject product = new JSONObject();
+                try {
+                    product.put("id", intentId);
+                    product.put("amount", amount.getText().toString());
+                    product.put("name", productName.getText().toString());
+                    product.put("description", productDetail.getText().toString());
+                    product.put("unityPrice", productPrice.getText().toString());
+                    product.put("totalPrice", total);
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                user.addTomCart(product);
+                Log.i("cart", user.getmCart()+"");
+                Intent intent = new Intent(ProductDetailActivity.this, CartActivity.class);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -135,7 +165,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
     private void changePrice(int multiple, double price){
-        String total = String.valueOf(multiple * price);
+        total = String.valueOf(multiple * price);
         totalPrice.setText("TOTAL: C$"+total);
     }
     @Override

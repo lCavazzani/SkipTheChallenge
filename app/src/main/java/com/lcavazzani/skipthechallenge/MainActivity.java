@@ -1,5 +1,6 @@
 package com.lcavazzani.skipthechallenge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -46,6 +47,25 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.cart) {
+            // do something here
+            Intent intent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(intent);        }
+        return super.onOptionsItemSelected(item);
     }
 
 //    @Override
